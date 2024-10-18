@@ -1,15 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { storelogin, storelogout } from "../Store/adminSlice";
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const URL_BASIC = import.meta.env.VITE_URL_BASIC;
   const NavItems = [
     { name: "Home", slug: "/", active: true },
     { name: "Add Students", slug: "/add-student", active: true },
     { name: "All Students", slug: "/view", active: true },
+    { name: "Login", slug: "/login", active: true },
+    { name: "SignUp", slug: "/signup", active: true },
   ];
 
+  const status = useSelector((state) => state.admin.status);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    setLoading(true);
+    try {
+      await fetch(`${URL_BASIC}/admin/logout`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      dispatch(storelogout());
+      navigate('/')
+    } catch (error) {
+      console.error("Logout failed: ", error);
+    } finally {
+      setLoading(false);
+    }
+  }
   return (
     <>
       <header className="shadow py-4 bg-blue-600">
@@ -54,8 +79,7 @@ export default function Header() {
                     <NavLink
                       to={item.slug}
                       className={({ isActive }) =>
-                        `inline-block px-6 py-2 duration-200 rounded-full ${
-                          isActive ? "bg-slate-200 text-gray-800" : "text-white"
+                        `inline-block px-6 py-2 duration-200 rounded-full ${isActive ? "bg-slate-200 text-gray-800" : "text-white"
                         }`
                       }
                     >
@@ -64,7 +88,17 @@ export default function Header() {
                   </li>
                 )
             )}
+            {
+              status && (
+                <button
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              )
+            }
           </ul>
+
         </div>
         {menuOpen && (
           <ul className="lg:hidden px-4 mt-4 flex flex-col space-y-2">
@@ -75,8 +109,7 @@ export default function Header() {
                     <NavLink
                       to={item.slug}
                       className={({ isActive }) =>
-                        `block w-full text-center px-6 py-2 duration-200 rounded-full ${
-                          isActive ? "bg-slate-200 text-gray-800" : "text-white"
+                        `block w-full text-center px-6 py-2 duration-200 rounded-full ${isActive ? "bg-slate-200 text-gray-800" : "text-white"
                         }`
                       }
                       onClick={() => setMenuOpen(false)}
@@ -86,6 +119,15 @@ export default function Header() {
                   </li>
                 )
             )}
+            {
+              status && (
+                <button
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              )
+            }
           </ul>
         )}
       </header>
