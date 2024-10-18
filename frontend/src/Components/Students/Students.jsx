@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { format } from 'date-fns';
 import { Link } from "react-router-dom";
+import Loading from "../Loading";
 
 export default function ViewStudents() {
     const BaseUrl = import.meta.env.VITE_URL_BASIC;
-    const [students, setStudents] = useState([]);   
-    const [loading, setLoading] = useState(true); 
-    const [error, setError] = useState(null); 
+    const [students, setStudents] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     // State for search input
     const [searchFilters, setSearchFilters] = useState({
@@ -29,6 +30,7 @@ export default function ViewStudents() {
 
     useEffect(() => {
         const getAllStudents = async () => {
+            setLoading(true);
             try {
                 const response = await fetch(`${BaseUrl}/student/all`, {
                     method: 'GET',
@@ -36,9 +38,9 @@ export default function ViewStudents() {
                 const result = await response.json();
 
                 if (response.ok) {
-                    setStudents(result);  
+                    setStudents(result);
                     setFilteredStudents(result);  // Initially display all students
-                    setError(null);  
+                    setError(null);
                 } else {
                     setError("Failed to fetch students or data is not in expected format");
                 }
@@ -67,7 +69,7 @@ export default function ViewStudents() {
         setFilteredStudents(students);  // Display the complete list of students
     };
     if (loading) {
-        return <div>Loading students...</div>;
+        return <Loading />
     }
 
     if (error) {
@@ -131,7 +133,7 @@ export default function ViewStudents() {
                 {filteredStudents.length > 0 ? (
                     filteredStudents.map((item) => (
                         <div
-                            key={item._id}  
+                            key={item._id}
                             className="bg-gradient-to-br from-white to-gray-100 rounded-lg shadow-lg p-4 flex flex-col justify-between"
                         >
                             <div>
@@ -142,10 +144,10 @@ export default function ViewStudents() {
                                 <h1>Year of Admission: {format(new Date(item.yearOfAdmission), 'yyyy')}</h1>
                             </div>
                             <div className="mt-4">
-                                <Link 
-                                    to={`/students/${item._id}`} 
+                                <Link
+                                    to={`/students/${item._id}`}
                                     className="text-blue-500 hover:underline"
-                                    state={{student:item}}
+                                    state={{ student: item }}
                                 >
                                     View Details
                                 </Link>

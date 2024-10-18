@@ -125,7 +125,7 @@ router.get('/all',async (req,res)=>{
 router.get('/userId/:id',async(req,res)=>{
     try {
         const studentId = req.params.id;
-        console.log(studentId);
+        // console.log(studentId);
         const student = await Student.findById(studentId);
         if (!student) {
             return res.status(404).send('Student not found');

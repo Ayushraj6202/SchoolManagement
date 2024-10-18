@@ -12,11 +12,14 @@ export default function SignUp() {
     const BaseUrl = import.meta.env.VITE_URL_BASIC;
     const navigate = useNavigate();
 
-    // State for managing the display of the credentials card
     const [showCard, setShowCard] = useState(false);
     const [credentials, setCredentials] = useState({ email: '', password: '' });
+    const [errorMessage, setErrorMessage] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const onSubmit = async (data) => {
+        setLoading(true);
+        setErrorMessage('');
         try {
             const response = await fetch(`${BaseUrl}/admin/signup`, {
                 method: 'POST',
@@ -32,15 +35,16 @@ export default function SignUp() {
                 })
             });
             const result = await response.json();
-            console.log(result, response);
+            setLoading(false);
             if (response.ok) {
-                // Show the card with email and password
                 setCredentials({ email: data.Email, password: data.Password });
                 setShowCard(true);
-                // Optionally, navigate to login page after a timeout
-                // setTimeout(() => navigate('/login'), 5000);
+            } else {
+                setErrorMessage(result.message || "Something went wrong. Please try again.");
             }
         } catch (error) {
+            setLoading(false);
+            setErrorMessage("Error during signup. Please check your network and try again.");
             console.log("error while signup", error);
         }
     };
@@ -53,6 +57,14 @@ export default function SignUp() {
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Sign up for a new account
                         </h1>
+
+                        {/* Error message display */}
+                        {errorMessage && (
+                            <div className="bg-red-100 text-red-700 p-2 rounded-md">
+                                <p>{errorMessage}</p>
+                            </div>
+                        )}
+
                         {/* Card for displaying credentials */}
                         {showCard && (
                             <div className="mt-4 p-4 border border-gray-300 rounded-lg bg-white shadow-md bg-blue-200">
@@ -62,8 +74,8 @@ export default function SignUp() {
                                 <p className="text-gray-500 dark:text-gray-400">Take a screenshot of this information for future reference!</p>
                             </div>
                         )}
+
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6">
-                            
                             {/* Name Input */}
                             <div>
                                 <label
@@ -151,8 +163,8 @@ export default function SignUp() {
                                     <option value="" disabled hidden>
                                         -- Please select your role --
                                     </option>
-                                    <option value="SuperAdmin">SuperAdmin</option>
                                     <option value="Admin">Admin</option>
+                                    <option value="SuperAdmin">SuperAdmin</option>
                                 </select>
                                 {errors.role && (
                                     <p className="text-red-500 text-sm mt-1">{errors.role.message}</p>
@@ -163,8 +175,9 @@ export default function SignUp() {
                             <button
                                 type="submit"
                                 className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                disabled={loading}
                             >
-                                Sign up
+                                {loading ? 'Signing up...' : 'Sign up'}
                             </button>
                         </form>
                     </div>

@@ -6,15 +6,15 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const URL_BASIC = import.meta.env.VITE_URL_BASIC;
+  const status = useSelector((state) => state.admin.status);
   const NavItems = [
     { name: "Home", slug: "/", active: true },
     { name: "Add Students", slug: "/add-student", active: true },
     { name: "All Students", slug: "/view", active: true },
-    { name: "Login", slug: "/login", active: true },
-    { name: "SignUp", slug: "/signup", active: true },
+    { name: "Login", slug: "/login", active: (status==false) },
+    { name: "Add Admin", slug: "/signup", active: true },
   ];
 
-  const status = useSelector((state) => state.admin.status);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -35,6 +35,11 @@ export default function Header() {
       setLoading(false);
     }
   }
+  if(loading){
+    return (
+      <>Loading .... </>
+    )
+  }
   return (
     <>
       <header className="shadow py-4 bg-blue-600">
@@ -48,7 +53,7 @@ export default function Header() {
                 alt="logo"
               />
             </Link>
-            <h1 className="text-white text-xl font-semibold">IITS National</h1>
+            <h1 className="text-white text-xl font-semibold">XYZ</h1>
           </div>
 
           <button
@@ -92,6 +97,7 @@ export default function Header() {
               status && (
                 <button
                   onClick={handleLogout}
+                  className="inline-block px-6 py-2 duration-200 rounded-full text-gray-800 text-white bg-red-500"
                 >
                   Logout
                 </button>

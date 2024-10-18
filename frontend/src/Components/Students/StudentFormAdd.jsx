@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
+import Loading from "../Loading";
 
 export default function StudentFormAdd() {
-    const { register, handleSubmit, setValue,getValues } = useForm();
+    const { register, handleSubmit, setValue, getValues } = useForm();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const location = useLocation();
@@ -61,9 +62,9 @@ export default function StudentFormAdd() {
                 }),
             });
             const result = await response.json();
-            console.log("add stud ",response,result);
-            
-            if(response.ok){
+            console.log("add stud ", response, result);
+
+            if (response.ok) {
                 console.log("Student Added");
                 navigate(`/view`)
             }
@@ -79,165 +80,167 @@ export default function StudentFormAdd() {
     if (error) {
         return <div className="text-red-500">{error}</div>;
     }
-
+    if (loading) {
+        return <Loading />
+    }
     return (
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap gap-4">
-        {/* Student Details Section */}
-        <div className="w-full mb-6">
-            <h2 className="text-lg font-bold mb-4">Student Details</h2>
-            <div className="border p-4 rounded-lg bg-gray-50 shadow-md grid grid-cols-2 gap-4">
-                <div>
-                    <label className="block text-sm font-bold mb-1">Name</label>
-                    <input
-                        placeholder="Name"
-                        className="border p-2 w-full"
-                        {...register("name", { required: true })}
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-bold mb-1">Roll ID</label>
-                    <input
-                        placeholder="Roll ID"
-                        className="border p-2 w-full"
-                        {...register("rollId", { required: true })}
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-bold mb-1">Class</label>
-                    <input
-                        placeholder="Class"
-                        className="border p-2 w-full"
-                        {...register("class", { required: true })}
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-bold mb-1">Date of Birth</label>
-                    <input
-                        type="date"
-                        className="border p-2 w-full"
-                        {...register("DOB", { required: true })}
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-bold mb-1">Year of Admission</label>
-                    <input
-                        type="date"
-                        className="border p-2 w-full"
-                        {...register("yearOfAdmission", { required: true })}
-                    />
-                </div>
-            </div>
-        </div>
-    
-        {/* Parent Details Section */}
-        <div className="w-full mb-6">
-            <h2 className="text-lg font-bold mb-4">Parent Details</h2>
-            <div className="border p-4 rounded-lg bg-gray-50 shadow-md grid grid-cols-2 gap-4">
-                <div>
-                    <label className="block text-sm font-bold mb-1">Father's Name</label>
-                    <input
-                        {...register("parent.father.name")}
-                        placeholder="Father's Name"
-                        className="border p-2 w-full"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-bold mb-1">Mother's Name</label>
-                    <input
-                        {...register("parent.mother.name")}
-                        placeholder="Mother's Name"
-                        className="border p-2 w-full"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-bold mb-1">Father's DOB</label>
-                    <input
-                        {...register("parent.father.DOB")}
-                        type="date"
-                        className="border p-2 w-full"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-bold mb-1">Mother's DOB</label>
-                    <input
-                        {...register("parent.mother.DOB")}
-                        type="date"
-                        className="border p-2 w-full"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-bold mb-1">Father's Phone Number</label>
-                    <input
-                        {...register("parent.father.phoneNumber")}
-                        placeholder="Father's Phone Number"
-                        className="border p-2 w-full"
-                    />
-                </div>
-                
-                
-                <div>
-                    <label className="block text-sm font-bold mb-1">Mother's Phone Number</label>
-                    <input
-                        {...register("parent.mother.phoneNumber")}
-                        placeholder="Mother's Phone Number"
-                        className="border p-2 w-full"
-                    />
+            {/* Student Details Section */}
+            <div className="w-full mb-6">
+                <h2 className="text-lg font-bold mb-4">Student Details</h2>
+                <div className="border p-4 rounded-lg bg-gray-50 shadow-md grid grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-sm font-bold mb-1">Name</label>
+                        <input
+                            placeholder="Name"
+                            className="border p-2 w-full"
+                            {...register("name", { required: true })}
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-1">Roll ID</label>
+                        <input
+                            placeholder="Roll ID"
+                            className="border p-2 w-full"
+                            {...register("rollId", { required: true })}
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-1">Class</label>
+                        <input
+                            placeholder="Class"
+                            className="border p-2 w-full"
+                            {...register("class", { required: true })}
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-1">Date of Birth</label>
+                        <input
+                            type="date"
+                            className="border p-2 w-full"
+                            {...register("DOB", { required: true })}
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-1">Year of Admission</label>
+                        <input
+                            type="date"
+                            className="border p-2 w-full"
+                            {...register("yearOfAdmission", { required: true })}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
-    
-        {/* Address Section */}
-        <div className="w-full mb-6">
-            <h2 className="text-lg font-bold mb-4">Address</h2>
-            <div className="border p-4 rounded-lg bg-gray-50 shadow-md grid grid-cols-2 gap-4">
-                <div>
-                    <label className="block text-sm font-bold mb-1">State</label>
-                    <input
-                        {...register("address.state")}
-                        placeholder="State"
-                        className="border p-2 w-full"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-bold mb-1">City</label>
-                    <input
-                        {...register("address.city")}
-                        placeholder="City"
-                        className="border p-2 w-full"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-bold mb-1">Village</label>
-                    <input
-                        {...register("address.village")}
-                        placeholder="Village"
-                        className="border p-2 w-full"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-bold mb-1">Pincode</label>
-                    <input
-                        {...register("address.pincode")}
-                        type="number"
-                        placeholder="Pincode"
-                        className="border p-2 w-full"
-                    />
+
+            {/* Parent Details Section */}
+            <div className="w-full mb-6">
+                <h2 className="text-lg font-bold mb-4">Parent Details</h2>
+                <div className="border p-4 rounded-lg bg-gray-50 shadow-md grid grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-sm font-bold mb-1">Father's Name</label>
+                        <input
+                            {...register("parent.father.name")}
+                            placeholder="Father's Name"
+                            className="border p-2 w-full"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-1">Mother's Name</label>
+                        <input
+                            {...register("parent.mother.name")}
+                            placeholder="Mother's Name"
+                            className="border p-2 w-full"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-1">Father's DOB</label>
+                        <input
+                            {...register("parent.father.DOB")}
+                            type="date"
+                            className="border p-2 w-full"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-1">Mother's DOB</label>
+                        <input
+                            {...register("parent.mother.DOB")}
+                            type="date"
+                            className="border p-2 w-full"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-1">Father's Phone Number</label>
+                        <input
+                            {...register("parent.father.phoneNumber")}
+                            placeholder="Father's Phone Number"
+                            className="border p-2 w-full"
+                        />
+                    </div>
+
+
+                    <div>
+                        <label className="block text-sm font-bold mb-1">Mother's Phone Number</label>
+                        <input
+                            {...register("parent.mother.phoneNumber")}
+                            placeholder="Mother's Phone Number"
+                            className="border p-2 w-full"
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
-    
-        {/* Submit Button */}
-        <div className="w-full">
-            <button
-                type="submit"
-                className={`w-full p-2 text-white rounded-sm ${student ? "bg-green-500" : "bg-blue-500"}`}
-                disabled={loading}
-            >
-                Submit
-            </button>
-        </div>
-    </form>
-    
-    
+
+            {/* Address Section */}
+            <div className="w-full mb-6">
+                <h2 className="text-lg font-bold mb-4">Address</h2>
+                <div className="border p-4 rounded-lg bg-gray-50 shadow-md grid grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-sm font-bold mb-1">State</label>
+                        <input
+                            {...register("address.state")}
+                            placeholder="State"
+                            className="border p-2 w-full"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-1">City</label>
+                        <input
+                            {...register("address.city")}
+                            placeholder="City"
+                            className="border p-2 w-full"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-1">Village</label>
+                        <input
+                            {...register("address.village")}
+                            placeholder="Village"
+                            className="border p-2 w-full"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-1">Pincode</label>
+                        <input
+                            {...register("address.pincode")}
+                            type="number"
+                            placeholder="Pincode"
+                            className="border p-2 w-full"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            {/* Submit Button */}
+            <div className="w-full">
+                <button
+                    type="submit"
+                    className={`w-full p-2 text-white rounded-sm ${student ? "bg-green-500" : "bg-blue-500"}`}
+                    disabled={loading}
+                >
+                    Submit
+                </button>
+            </div>
+        </form>
+
+
     );
 }

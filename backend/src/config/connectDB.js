@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const pathMongoDB = process.env.MONGO_DB_URL;
 const database = process.env.DATABASE;
-console.log(pathMongoDB,database);
+// console.log(pathMongoDB,database);
 
 const connectDB = async ()=>{
     try {
