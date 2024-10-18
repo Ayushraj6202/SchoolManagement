@@ -93,7 +93,7 @@ router.get('/all',async(req,res)=>{
 router.delete('/delete/:id',verifySuperAdmin,async(req,res)=>{
     try {
         const adminId = req.params.id;
-        // console.log("admin id backend ",adminId);
+        // console.log("admin id backend ",adminId,req.admin);
         
         if(!adminId){
             return res.json({msg:"No admin found"});
@@ -108,8 +108,11 @@ router.post('/admin/:id',verifySuperAdmin,async(req,res)=>{
     try {
         const {role} = req.body;
         const adminId = req.params.id;
-        // console.log(role,adminId);
-        
+        const adminChnageId = req.Admin.id;
+        console.log(role,adminId,adminChnageId);
+        if(adminChnageId===adminId){
+            return res.status(402).json({msg:"Cannot change own role"});
+        }
         const adminHere = await Admin.findById(adminId);
         adminHere.role = role;
         await adminHere.save({validateBeforeSave:false});

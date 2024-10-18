@@ -12,6 +12,7 @@ export default function AllAdmins() {
     const BaseUrl = import.meta.env.VITE_URL_BASIC;
     const role = useSelector((state) => state.admin.role);
     const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         const fetchAdmins = async () => {
             setLoading(true);
@@ -35,11 +36,12 @@ export default function AllAdmins() {
 
     const handleDelete = async (id) => {
         if (selectedAdmin.role === "SuperAdmin") {
-            setWarning("You cannot delete another SuperAdmin!");
+            setWarning("You cannot delete SuperAdmin!");
             setShowConfirm(false);  // Close the confirmation modal
             return;
         }
         setLoading(true);
+        setWarning('');
         try {
             const response = await fetch(`${BaseUrl}/admin/delete/${id}`, {
                 method: 'DELETE',
@@ -50,9 +52,11 @@ export default function AllAdmins() {
                 setAdmins(admins.filter(admin => admin._id !== id));
                 console.log('Admin deleted');
             } else {
+                setWarning(result.msg);
                 console.log('Delete failed');
             }
         } catch (error) {
+            setWarning(result.msg);
             console.log('Delete error ', error);
             setLoading(false);
         }
@@ -78,6 +82,7 @@ export default function AllAdmins() {
             return;
         }
         setLoading(true);
+        setWarning('');
         try {
             const response = await fetch(`${BaseUrl}/admin/admin/${id}`, {
                 method: 'POST',
@@ -88,17 +93,22 @@ export default function AllAdmins() {
                 body: JSON.stringify({ role: roleChange }),
             });
             setLoading(false);
+            const result = await response.json();
+            // console.log(response,);
+
             if (response.ok) {
                 setAdmins(admins.map(admin => admin._id === id ? { ...admin, role: roleChange } : admin));
                 console.log('Role updated successfully');
             } else {
+                setWarning(result.msg)
                 console.log('Role change failed');
             }
         } catch (error) {
             setLoading(false);
+            setWarning(error);
             console.log('Role change error ', error);
         }
-        setWarning('');
+        // setWarning('');
         setShowConfirm(false);
     };
 
@@ -113,6 +123,13 @@ export default function AllAdmins() {
     }
     return (
         <div className="min-h-screen bg-gray-100 py-8">
+            <div className="relative p-6 mb-6 text-center rounded-lg shadow-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white overflow-hidden">
+                <h1 className="text-2xl font-bold">Welcome {role}!</h1>
+                <div className="absolute inset-0 opacity-10 bg-gradient-to-r from-yellow-400 to-red-500 blur-md animate-pulse" />
+                <div className="absolute inset-0 opacity-10 bg-gradient-to-r from-pink-500 to-orange-500 blur-md animate-pulse" />
+                <div className="absolute inset-0 opacity-15 bg-gradient-to-r from-green-300 to-blue-500 blur-md animate-pulse" />
+            </div>
+
             <div className="text-center text-2xl font-semibold bg-blue-400 mb-6">All Active Admins</div>
 
             {/* Display warning if exists */}

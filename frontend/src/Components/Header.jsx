@@ -7,12 +7,13 @@ export default function Header() {
   const [loading, setLoading] = useState(false);
   const URL_BASIC = import.meta.env.VITE_URL_BASIC;
   const status = useSelector((state) => state.admin.status);
+  const role = useSelector((state) => state.admin.role);
   const NavItems = [
     { name: "Home", slug: "/", active: true },
-    { name: "Add Students", slug: "/add-student", active: true },
+    { name: "Add Students", slug: "/add-student", active: (role === 'SuperAdmin') },
     { name: "All Students", slug: "/view", active: true },
-    { name: "Login", slug: "/login", active: (status==false) },
-    { name: "Add Admin", slug: "/signup", active: true },
+    { name: "Login", slug: "/login", active: (status === false) },
+    { name: "Add Admin", slug: "/signup", active: (role === 'SuperAdmin') },
   ];
 
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ export default function Header() {
       setLoading(false);
     }
   }
-  if(loading){
+  if (loading) {
     return (
       <>Loading .... </>
     )
