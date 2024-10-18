@@ -6,7 +6,7 @@ export default function AddStudents() {
 
     return (
         <>
-            <div className="my-3">
+            <div className="">
                 <StudentFormAdd />
             </div>
         </>

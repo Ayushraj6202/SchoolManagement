@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm,Controller } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../Loading";
+import DatePicker from 'react-datepicker';
+
 
 export default function StudentFormEdit() {
-    const { register, handleSubmit, setValue, getValues } = useForm();
+    const { register, handleSubmit, setValue, getValues ,control} = useForm();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const location = useLocation();
@@ -90,7 +92,7 @@ export default function StudentFormEdit() {
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap gap-4">
             {/* Student Details Section */}
             <div className="w-full mb-6">
-                <h2 className="text-lg font-bold mb-4">Student Details</h2>
+                <h2 className="text-lg font-bold mb-4 flex justify-center bg-blue-300 p-1">Student Details</h2>
                 <div className="border p-4 rounded-lg bg-gray-50 shadow-md grid grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-bold mb-1">Name</label>
@@ -137,7 +139,7 @@ export default function StudentFormEdit() {
 
             {/* Parent Details Section */}
             <div className="w-full mb-6">
-                <h2 className="text-lg font-bold mb-4">Parent Details</h2>
+                <h2 className="text-lg font-bold mb-4 flex justify-center bg-blue-300 p-1">Parent Details</h2>
                 <div className="border p-4 rounded-lg bg-gray-50 shadow-md grid grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-bold mb-1">Father's Name</label>
@@ -179,8 +181,6 @@ export default function StudentFormEdit() {
                             className="border p-2 w-full"
                         />
                     </div>
-
-
                     <div>
                         <label className="block text-sm font-bold mb-1">Mother's Phone Number</label>
                         <input
@@ -194,7 +194,7 @@ export default function StudentFormEdit() {
 
             {/* Address Section */}
             <div className="w-full mb-6">
-                <h2 className="text-lg font-bold mb-4">Address</h2>
+                <h2 className="text-lg font-bold mb-4 flex justify-center bg-blue-300 p-1">Address</h2>
                 <div className="border p-4 rounded-lg bg-gray-50 shadow-md grid grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-bold mb-1">State</label>

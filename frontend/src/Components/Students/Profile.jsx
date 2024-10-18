@@ -3,6 +3,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from 'react-redux'
 import Loading from "../Loading";
+import useScrollToTop from "./UseScrollTop.jsx";
 export default function Profile() {
 	const { id } = useParams();
 	const location = useLocation();
@@ -16,6 +17,7 @@ export default function Profile() {
 	const role = useSelector((state) => state.admin.role);
 	// console.log(role);
 
+	useScrollToTop();
 	useEffect(() => {
 		if (!stateStudent) {
 			const fetchStudent = async () => {
@@ -118,62 +120,119 @@ export default function Profile() {
 
 			{/* Student Personal Details */}
 			<section className="space-y-4">
-				<h1 className="text-3xl font-bold mb-4">Personal Details</h1>
-				<div className="grid grid-cols-2 gap-6">
-					<div className="bg-gray-50 p-4 rounded-lg shadow-md">
-						<p><strong className="block text-gray-600">Name:</strong> {student.name}</p>
-						<p><strong className="block text-gray-600">Roll ID:</strong> {student.rollId}</p>
-						<p><strong className="block text-gray-600">Class:</strong> {student.class}</p>
+				<h1 className="text-3xl font-bold mb-4 text-center">Personal Details</h1>
+				<div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6">
+					<div className="bg-gray-50 p-6 rounded-lg shadow-md">
+						<div className="flex justify-between border-b border-gray-200 pb-2 mb-2">
+							<strong className="text-gray-600">Name:</strong>
+							<span className="text-gray-800">{student.name}</span>
+						</div>
+						<div className="flex justify-between border-b border-gray-200 pb-2 mb-2">
+							<strong className="text-gray-600">Roll ID:</strong>
+							<span className="text-gray-800">{student.rollId}</span>
+						</div>
+						<div className="flex justify-between border-b border-gray-200 pb-2 mb-2">
+							<strong className="text-gray-600">Class:</strong>
+							<span className="text-gray-800">{student.class}</span>
+						</div>
 					</div>
-					<div className="bg-gray-50 p-4 rounded-lg shadow-md">
-						<p><strong className="block text-gray-600">Date of Birth:</strong> {new Date(student.DOB).toLocaleDateString()}</p>
-						<p><strong className="block text-gray-600">Year of Admission:</strong> {new Date(student.yearOfAdmission).toLocaleDateString()}</p>
+					<div className="bg-gray-50 p-6 rounded-lg shadow-md">
+						<div className="flex justify-between border-b border-gray-200 pb-2 mb-2">
+							<strong className="text-gray-600">Date of Birth:</strong>
+							<span className="text-gray-800">{new Date(student.DOB).toLocaleDateString()}</span>
+						</div>
+						<div className="flex justify-between border-b border-gray-200 pb-2 mb-2">
+							<strong className="text-gray-600">Year of Admission:</strong>
+							<span className="text-gray-800">{new Date(student.yearOfAdmission).toLocaleDateString()}</span>
+						</div>
 					</div>
 				</div>
 			</section>
 
+
+			{/* Parents Information */}
 			{/* Parents Information */}
 			<section className="space-y-4">
-				<h2 className="text-2xl font-semibold mb-4">Parents Information</h2>
-				<div className="grid grid-cols-2 gap-6">
+				<h2 className="text-2xl font-semibold mb-4 text-center">Parents Information</h2>
+				<div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6">
 					{/* Father's Info */}
-					<div className="bg-gray-50 p-4 rounded-lg shadow-md">
-						<h3 className="font-semibold mb-2">Father</h3>
-						<p><strong className="block text-gray-600">Name:</strong> {student.parent?.father?.name}</p>
-						<p><strong className="block text-gray-600">Date of Birth:</strong> {student.parent?.father?.DOB ? new Date(student.parent.father.DOB).toLocaleDateString() : 'N/A'}</p>
-						<p><strong className="block text-gray-600">Phone Number:</strong> {student.parent?.father?.phoneNumber || 'N/A'}</p>
+					<div className="bg-gray-50 p-6 rounded-lg shadow-md">
+						<h3 className="font-semibold mb-2 flex justify-center">Father</h3>
+						<div className="flex justify-between border-b border-gray-200 pb-2 mb-2">
+							<strong className="text-gray-600">Name:</strong>
+							<span className="text-gray-800">{student.parent?.father?.name || 'N/A'}</span>
+						</div>
+						<div className="flex justify-between border-b border-gray-200 pb-2 mb-2">
+							<strong className="text-gray-600">Date of Birth:</strong>
+							<span className="text-gray-800">{student.parent?.father?.DOB ? new Date(student.parent.father.DOB).toLocaleDateString() : 'N/A'}</span>
+						</div>
+						<div className="flex justify-between border-b border-gray-200 pb-2 mb-2">
+							<strong className="text-gray-600">Phone Number:</strong>
+							<span className="text-gray-800">{student.parent?.father?.phoneNumber || 'N/A'}</span>
+						</div>
 					</div>
 
 					{/* Mother's Info */}
-					<div className="bg-gray-50 p-4 rounded-lg shadow-md">
-						<h3 className="font-semibold mb-2">Mother</h3>
-						<p><strong className="block text-gray-600">Name:</strong> {student.parent?.mother?.name}</p>
-						<p><strong className="block text-gray-600">Date of Birth:</strong> {student.parent?.mother?.DOB ? new Date(student.parent.mother.DOB).toLocaleDateString() : 'N/A'}</p>
-						<p><strong className="block text-gray-600">Phone Number:</strong> {student.parent?.mother?.phoneNumber || 'N/A'}</p>
+					<div className="bg-gray-50 p-6 rounded-lg shadow-md">
+						<h3 className="font-semibold mb-2 flex justify-center">Mother</h3>
+						<div className="flex justify-between border-b border-gray-200 pb-2 mb-2">
+							<strong className="text-gray-600">Name:</strong>
+							<span className="text-gray-800">{student.parent?.mother?.name || 'N/A'}</span>
+						</div>
+						<div className="flex justify-between border-b border-gray-200 pb-2 mb-2">
+							<strong className="text-gray-600">Date of Birth:</strong>
+							<span className="text-gray-800">{student.parent?.mother?.DOB ? new Date(student.parent.mother.DOB).toLocaleDateString() : 'N/A'}</span>
+						</div>
+						<div className="flex justify-between border-b border-gray-200 pb-2 mb-2">
+							<strong className="text-gray-600">Phone Number:</strong>
+							<span className="text-gray-800">{student.parent?.mother?.phoneNumber || 'N/A'}</span>
+						</div>
 					</div>
 				</div>
 			</section>
 
 			{/* Address Information */}
-			<section className="space-y-4">
-				<h2 className="text-2xl font-semibold mb-4">Address</h2>
-				<div className="grid grid-cols-2 gap-6">
-					<div className="bg-gray-50 p-4 rounded-lg shadow-md">
-						<p><strong className="block text-gray-600">State:</strong> {student.address?.state || 'N/A'}</p>
-						<p><strong className="block text-gray-600">City:</strong> {student.address?.city || 'N/A'}</p>
+			<section className="space-y-4 mt-6">
+				<h2 className="text-2xl font-semibold mb-4 text-center">Address</h2>
+				<div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6">
+					<div className="bg-gray-50 p-6 rounded-lg shadow-md">
+						<div className="flex justify-between border-b border-gray-200 pb-2 mb-2">
+							<strong className="text-gray-600">State:</strong>
+							<span className="text-gray-800">{student.address?.state || 'N/A'}</span>
+						</div>
+						<div className="flex justify-between border-b border-gray-200 pb-2 mb-2">
+							<strong className="text-gray-600">City:</strong>
+							<span className="text-gray-800">{student.address?.city || 'N/A'}</span>
+						</div>
 					</div>
-					<div className="bg-gray-50 p-4 rounded-lg shadow-md">
-						<p><strong className="block text-gray-600">Village:</strong> {student.address?.village || 'N/A'}</p>
-						<p><strong className="block text-gray-600">Pincode:</strong> {student.address?.pincode || 'N/A'}</p>
+					<div className="bg-gray-50 p-6 rounded-lg shadow-md">
+						<div className="flex justify-between border-b border-gray-200 pb-2 mb-2">
+							<strong className="text-gray-600">Village:</strong>
+							<span className="text-gray-800">{student.address?.village || 'N/A'}</span>
+						</div>
+						<div className="flex justify-between border-b border-gray-200 pb-2 mb-2">
+							<strong className="text-gray-600">Pincode:</strong>
+							<span className="text-gray-800">{student.address?.pincode || 'N/A'}</span>
+						</div>
 					</div>
 				</div>
 			</section>
 
 			{/* Timestamps */}
-			<section className="text-sm text-gray-500 mt-4">
-				<p><strong>Created At:</strong> {new Date(student.createdAt).toLocaleString()}</p>
-				<p><strong>Updated At:</strong> {new Date(student.updatedAt).toLocaleString()}</p>
+			<section className="space-y-2 mt-6">
+				<h2 className="text-2xl font-semibold mb-4 text-center">Timestamps</h2>
+				<div className="bg-gray-50 p-4 rounded-lg shadow-md">
+					<div className="flex justify-between border-b border-gray-200 pb-2 mb-2">
+						<strong className="text-gray-600">Created At:</strong>
+						<span className="text-gray-800">{new Date(student.createdAt).toLocaleString()}</span>
+					</div>
+					<div className="flex justify-between">
+						<strong className="text-gray-600">Updated At:</strong>
+						<span className="text-gray-800">{new Date(student.updatedAt).toLocaleString()}</span>
+					</div>
+				</div>
 			</section>
+
 		</div>
 
 	);

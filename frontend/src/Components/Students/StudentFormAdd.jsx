@@ -87,7 +87,7 @@ export default function StudentFormAdd() {
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap gap-4">
             {/* Student Details Section */}
             <div className="w-full mb-6">
-                <h2 className="text-lg font-bold mb-4">Student Details</h2>
+                <h2 className="text-lg font-bold mb-4 flex justify-center bg-blue-300 p-1">Student Details</h2>
                 <div className="border p-4 rounded-lg bg-gray-50 shadow-md grid grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-bold mb-1">Name</label>
@@ -134,7 +134,7 @@ export default function StudentFormAdd() {
 
             {/* Parent Details Section */}
             <div className="w-full mb-6">
-                <h2 className="text-lg font-bold mb-4">Parent Details</h2>
+                <h2 className="text-lg font-bold mb-4 flex justify-center bg-blue-300 p-1">Parent Details</h2>
                 <div className="border p-4 rounded-lg bg-gray-50 shadow-md grid grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-bold mb-1">Father's Name</label>
@@ -191,7 +191,7 @@ export default function StudentFormAdd() {
 
             {/* Address Section */}
             <div className="w-full mb-6">
-                <h2 className="text-lg font-bold mb-4">Address</h2>
+                <h2 className="text-lg font-bold mb-4 flex justify-center bg-blue-300 p-1">Address</h2>
                 <div className="border p-4 rounded-lg bg-gray-50 shadow-md grid grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-bold mb-1">State</label>
