@@ -107,12 +107,18 @@ export default function StudentFormAdd() {
                     </div>
                     <div>
                         <label className="block text-sm font-bold mb-1">Class</label>
-                        <input
-                            placeholder="Class"
+                        <select
                             className="border p-2 w-full"
                             {...register("class", { required: true })}
-                        />
+                        >
+                            <option value="" disabled>Select Class</option>
+                            <option value="1st Year">1st Year</option>
+                            <option value="2nd Year">2nd Year</option>
+                            <option value="3rd Year">3rd Year</option>
+                            <option value="4th Year">4th Year</option>
+                        </select>
                     </div>
+
                     <div>
                         <label className="block text-sm font-bold mb-1">Date of Birth</label>
                         <input
@@ -233,7 +239,7 @@ export default function StudentFormAdd() {
             <div className="w-full">
                 <button
                     type="submit"
-                    className={`w-full p-2 text-white rounded-sm ${student ? "bg-green-500" : "bg-blue-500"}`}
+                    className={`w-full p-2 text-white rounded-full mb-1 ${student ? "bg-green-500" : "bg-blue-500"}`}
                     disabled={loading}
                 >
                     Submit

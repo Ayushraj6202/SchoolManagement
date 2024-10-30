@@ -16,6 +16,7 @@ export default function ViewStudents() {
         name: '',
         rollId: '',
         city: '',
+        class: '',
     });
 
     const [filteredStudents, setFilteredStudents] = useState([]);
@@ -53,21 +54,23 @@ export default function ViewStudents() {
         getAllStudents();
     }, [BaseUrl]);
 
-    // Function to handle search on button click
     const handleSearch = () => {
         const filtered = students.filter((student) => {
             return (
                 (!searchFilters.name || student.name.toLowerCase().includes(searchFilters.name.toLowerCase())) &&
                 (!searchFilters.rollId || student.rollId.toLowerCase().includes(searchFilters.rollId.toLowerCase())) &&
-                (!searchFilters.city || student.address?.city?.toLowerCase().includes(searchFilters.city.toLowerCase()))
+                (!searchFilters.city || student.address?.city?.toLowerCase().includes(searchFilters.city.toLowerCase())) &&
+                (!searchFilters.class || student.class?.toLowerCase() === searchFilters.class.toLowerCase())
             );
         });
         setFilteredStudents(filtered);
     };
+    
     const handleClearSearch = () => {
-        setSearchFilters({ name: '', rollId: '', city: '' });  // Reset the search inputs
+        setSearchFilters({ name: '', rollId: '', city: '', class: '' });  // Reset the search inputs
         setFilteredStudents(students);  // Display the complete list of students
     };
+    
     if (loading) {
         return <Loading />
     }
@@ -104,11 +107,11 @@ export default function ViewStudents() {
 
 
     return (
-        <div className="my-3">
+        <div className="bg-blue-400">
             {/* Search Filter Form */}
-            <div className="mb-6 p-4 bg-gray-100 rounded-lg">
-                <h2 className="text-xl font-semibold mb-2">Search Students</h2>
-                <div className="grid grid-cols-3 gap-4">
+            <div className="mb-6 p-4 bg-blue-300 rounded-sm">
+                <h2 className="text-xl font-semibold mb-2 flex justify-center bg-blue-300 p-1">Search Students</h2>
+                <div className="grid grid-cols-2 gap-4">
                     <input
                         type="text"
                         name="name"
@@ -133,6 +136,20 @@ export default function ViewStudents() {
                         onChange={handleFilterChange}
                         className="p-2 border rounded-md"
                     />
+                    <select
+                        name="class"
+                        value={searchFilters.class}
+                        onChange={handleFilterChange}
+                        className="p-2 border rounded-md"
+                    >
+                        <option value="" disabled>
+                            Search by class
+                        </option>
+                        <option value="1st year">1st year</option>
+                        <option value="2nd year">2nd year</option>
+                        <option value="3rd year">3rd year</option>
+                        <option value="4th year">4th year</option>
+                    </select>
                 </div>
                 {/* Search Button */}
                 <div className="mt-4 flex justify-center gap-2">
@@ -150,6 +167,7 @@ export default function ViewStudents() {
                     </button>
                 </div>
             </div>
+
 
             <div className="flex flex-col items-center">
                 <div className="flex flex-wrap justify-start gap-6 mb-6">

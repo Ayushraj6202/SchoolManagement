@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useForm,Controller } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../Loading";
 import DatePicker from 'react-datepicker';
 
 
 export default function StudentFormEdit() {
-    const { register, handleSubmit, setValue, getValues ,control} = useForm();
+    const { register, handleSubmit, setValue, getValues, control } = useForm();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const location = useLocation();
@@ -112,11 +112,16 @@ export default function StudentFormEdit() {
                     </div>
                     <div>
                         <label className="block text-sm font-bold mb-1">Class</label>
-                        <input
-                            placeholder="Class"
+                        <select
                             className="border p-2 w-full"
                             {...register("class", { required: true })}
-                        />
+                        >
+                            <option value="" disabled>Select Class</option>
+                            <option value="1st Year">1st Year</option>
+                            <option value="2nd Year">2nd Year</option>
+                            <option value="3rd Year">3rd Year</option>
+                            <option value="4th Year">4th Year</option>
+                        </select>
                     </div>
                     <div>
                         <label className="block text-sm font-bold mb-1">Date of Birth</label>

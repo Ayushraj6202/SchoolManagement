@@ -49,7 +49,7 @@ function Footer() {
                         <div className="mb-6">
                             <Link to="/" className="block">
                                 <img
-                                    src="https://lh3.googleusercontent.com/p/AF1QipOlzxSsMysyPCpbaqy7InFZxJ7UoHXACp8TqEY=s1360-w1360-h1020"
+                                    src="https://i.pinimg.com/474x/f6/81/c7/f681c776279f3f2a0d775eba95efc9c9.jpg"
                                     alt="logo"
                                     className="w-30 h-20 object-contain rounded-full"
                                 />

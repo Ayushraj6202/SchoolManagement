@@ -22,14 +22,18 @@ export default function Header() {
   const handleLogout = async () => {
     setLoading(true);
     try {
-      await fetch(`${URL_BASIC}/admin/logout`, {
-        method: "POST",
+      const response = await fetch(`${URL_BASIC}/admin/logout`, {
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
       });
-      dispatch(storelogout());
-      navigate('/')
+      console.log('logout ',response);
+      if(response.ok)
+      {
+        dispatch(storelogout());
+        navigate('/')
+      }
     } catch (error) {
       console.error("Logout failed: ", error);
     } finally {
@@ -48,13 +52,13 @@ export default function Header() {
           <div className="flex items-center space-x-2">
             <Link to="/">
               <img
-                src="https://lh3.googleusercontent.com/p/AF1QipOlzxSsMysyPCpbaqy7InFZxJ7UoHXACp8TqEY=s1360-w1360-h1020"
+                src="https://i.pinimg.com/474x/f6/81/c7/f681c776279f3f2a0d775eba95efc9c9.jpg"
                 height={80}
                 width={80}
                 alt="logo"
               />
             </Link>
-            <h1 className="text-white text-xl font-semibold">XYZ</h1>
+            <h1 className="text-white text-xl font-semibold">School</h1>
           </div>
 
           <button

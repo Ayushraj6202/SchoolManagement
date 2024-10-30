@@ -122,7 +122,7 @@ export default function AllAdmins() {
         return <Loading />
     }
     return (
-        <div className="min-h-screen bg-gray-100 py-8">
+        <div className="min-h-screen bg-blue-400">
             <div className="relative p-6 mb-6 text-center rounded-lg shadow-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white overflow-hidden">
                 <h1 className="text-2xl font-bold">Welcome {role}!</h1>
                 <div className="absolute inset-0 opacity-10 bg-gradient-to-r from-yellow-400 to-red-500 blur-md animate-pulse" />

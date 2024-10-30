@@ -66,15 +66,18 @@ router.post('/login', async (req, res) => {
         res.status(501).json({ msg: "Server Error" })
     }
 })
-router.post('/logout', (req, res) => {
+router.delete('/logout', (req, res) => {
+    
+    console.log('Logging out, removing token:', req.cookies.token);
     res.clearCookie('token', options);
     res.clearCookie('role', options);
+    console.log('Token after logout:', req.cookies.token); // should be undefined
     return res.status(200).send({ message: 'Logged out successfully' });
 });
 router.get('/refresh', async (req, res) => {
     const token = req.cookies.token;
     const role = req.cookies.role;
-    console.log("refresh ", token, role);
+    console.log("refresh ", role);
     jwt.verify(token, 'seceretkey', async (err, _) => {
         if (err) {
             return res.status(403).json({ msg: 'Unauthorized' });

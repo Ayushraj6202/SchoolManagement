@@ -50,7 +50,7 @@ export default function SignUp() {
     };
 
     return (
-        <section className="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center">
+        <section className="bg-blue-400 dark:bg-gray-900 min-h-screen flex items-center justify-center">
             <div className="px-6 py-8 mx-auto w-full max-w-md">
                 <div className="bg-white rounded-lg shadow dark:bg-gray-800 dark:border dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
